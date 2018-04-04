@@ -9,8 +9,11 @@
 import UIKit
 
 class ImageService {
+    static let sharedInstance = ImageService()
     private let urlSession = URLSession(configuration: .default)
     private var imageCache = NSCache<NSString, UIImage>()
+    
+    private init() { }
     
     func fetchImage(forURL url: String) -> UIImage? {
         return imageCache.object(forKey: url as NSString)

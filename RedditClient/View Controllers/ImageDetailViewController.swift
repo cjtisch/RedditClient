@@ -13,7 +13,7 @@ class ImageDetailViewController: UIViewController {
     
     var imageUrl: String?
     private let imageRestorationKey = "imageUrl"
-    private lazy var imageService = ImageService()
+    private lazy var imageService = ImageService.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()

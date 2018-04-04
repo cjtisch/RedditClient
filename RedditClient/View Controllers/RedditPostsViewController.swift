@@ -19,7 +19,7 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, UITabl
     private let postCellIdentifier = "postCell"
     private let imageDetailSegueIdentifier = "imageDetailSegue"
     private lazy var redditDataService = RedditDataService()
-    private lazy var imageService = ImageService()
+    private lazy var imageService = ImageService.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
