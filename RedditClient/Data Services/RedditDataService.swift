@@ -12,8 +12,13 @@ class RedditDataService {
     private let urlSession = URLSession(configuration: .default)
     private let baseUrl = "https://www.reddit.com/r/popular/top/.json?"
     
-    func getPosts(completion: @escaping (String?, [RedditPost]?) -> Void) {
-        guard let url = URL(string: baseUrl) else {
+    func getPosts(after: String? = nil, completion: @escaping (String?, [RedditPost]?) -> Void) {
+        var completeUrl = baseUrl
+        
+        if let after = after {
+            completeUrl += "after=\(after)"
+        }
+        guard let url = URL(string: completeUrl) else {
             completion(nil, nil)
             return
         }

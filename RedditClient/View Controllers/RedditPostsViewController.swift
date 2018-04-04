@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RedditPostsViewController: UIViewController, UITableViewDataSource, RedditPostTableViewCellDelegate {
+class RedditPostsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RedditPostTableViewCellDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -39,6 +39,21 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, Reddit
                     return
                 }
                 self?.redditPosts = redditPosts
+                self?.nextPostToLoad = nextPostToLoad
+                self?.tableView.reloadData()
+                self?.isLoadingPosts = false
+            }
+        }
+    }
+    
+    private func loadMoreRedditPosts() {
+        isLoadingPosts = true
+        redditDataService.getPosts(after: nextPostToLoad) { [weak self] (nextPostToLoad, redditPosts) in
+            DispatchQueue.main.async {
+                guard let redditPosts = redditPosts else {
+                    return
+                }
+                self?.redditPosts.append(contentsOf: redditPosts)
                 self?.nextPostToLoad = nextPostToLoad
                 self?.tableView.reloadData()
                 self?.isLoadingPosts = false
@@ -91,6 +106,16 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, Reddit
         }
         
         return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let _ = nextPostToLoad,
+            scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height),
+            !isLoadingPosts {
+            loadMoreRedditPosts()
+        }
     }
     
     // MARK: - UI Configuration
