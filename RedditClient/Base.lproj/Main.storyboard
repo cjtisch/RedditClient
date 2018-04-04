@@ -14,7 +14,7 @@
         <!--Top Posts-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Top Posts" id="BYZ-38-t0r" customClass="RedditPostsViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RedditPostsController" title="Top Posts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="RedditPostsViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -165,7 +165,7 @@
         <!--Image Detail View Controller-->
         <scene sceneID="OPW-Kj-jlD">
             <objects>
-                <viewController id="CRy-So-YJn" customClass="ImageDetailViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageDetailController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CRy-So-YJn" customClass="ImageDetailViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ujb-he-mgm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,6 +183,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P2T-Db-u0h"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Cre-li-spH">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="r0V-p6-HYP">
+                            <connections>
+                                <action selector="saveImage:" destination="CRy-So-YJn" id="F18-0q-4Xs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="yyO-HM-7Tm" id="fNc-ZS-cTQ"/>
                     </connections>
@@ -194,7 +201,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lkD-MV-lsV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UhE-3A-8O4" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UhE-3A-8O4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XOB-wV-ljK">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
