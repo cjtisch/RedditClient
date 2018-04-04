@@ -8,15 +8,16 @@
 
 import UIKit
 
-class RedditPostsViewController: UIViewController, UITableViewDataSource {
+class RedditPostsViewController: UIViewController, UITableViewDataSource, RedditPostTableViewCellDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    
     var redditPosts = [RedditPost]()
     private var nextPostToLoad: String?
     private var isLoadingPosts = false
     private let postWithImageCellIdentifier = "postWithImageCell"
     private let postCellIdentifier = "postCell"
+    private let imageDetailSegueIdentifier = "imageDetailSegue"
     private lazy var redditDataService = RedditDataService()
     private lazy var imageService = ImageService()
     
@@ -66,11 +67,12 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource {
         
         var detailText = dateString(from: redditPost.dateCreated)
         if let authorName = redditPost.author {
-            detailText += "∙ \(authorName)"
+            detailText += " ∙ \(authorName)"
         }
         cell.postDetailLabel.text = detailText
         cell.postTitleLabel.text = redditPost.title
         cell.commentCountLabel.text = "\(redditPost.commentsCount) Comments"
+        cell.delegate = self
         
         if let imageUrl = redditPost.imageUrl,
             let image = imageService.fetchImage(forURL: imageUrl) {
@@ -103,15 +105,24 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource {
         }
         return "\(abs(hours)) hours ago"
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: - RedditPostTableViewCellDelegate
+    
+    func postImageViewTapped(_ sender: RedditPostTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender),
+            let imageUrl = redditPosts[indexPath.row].imageUrl else { return }
+        
+        performSegue(withIdentifier: imageDetailSegueIdentifier, sender: imageUrl)
     }
-    */
-
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let imageUrl = sender as? String,
+            let imageDetailViewController = segue.destination as? ImageDetailViewController,
+            segue.identifier == imageDetailSegueIdentifier {
+            imageDetailViewController.imageUrl = imageUrl
+        }
+    }
+    
 }

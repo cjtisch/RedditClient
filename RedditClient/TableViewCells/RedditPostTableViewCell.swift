@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RedditPostTableViewCellDelegate: AnyObject {
+    func postImageViewTapped(_ sender: RedditPostTableViewCell)
+}
+
 class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postImageView: UIImageView?
     @IBOutlet weak var postDetailLabel: UILabel!
@@ -15,9 +19,12 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentCountLabel: UILabel!
     
     var imageUrl = ""
+    weak var delegate: RedditPostTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        postImageView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(postImageViewTapped(_:))))
     }
     
     override func prepareForReuse() {
@@ -27,4 +34,11 @@ class RedditPostTableViewCell: UITableViewCell {
         imageUrl = ""
     }
 
+    // MARK: - Actions
+    
+    @objc func postImageViewTapped(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            delegate?.postImageViewTapped(self)
+        }
+    }
 }
