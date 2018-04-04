@@ -31,25 +31,12 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, UITabl
     
     private func loadRedditPosts() {
         isLoadingPosts = true
-        activityIndicator.startAnimating()
-        redditDataService.getPosts() { [weak self] (nextPostToLoad, redditPosts) in
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                guard let redditPosts = redditPosts else {
-                    return
-                }
-                self?.redditPostViewModels = redditPosts.map { RedditPostViewModel(redditPost: $0) }
-                self?.nextPostToLoad = nextPostToLoad
-                self?.tableView.reloadData()
-                self?.isLoadingPosts = false
-            }
+        if redditPostViewModels.isEmpty {
+            activityIndicator.startAnimating()
         }
-    }
-    
-    private func loadMoreRedditPosts() {
-        isLoadingPosts = true
         redditDataService.getPosts(after: nextPostToLoad) { [weak self] (nextPostToLoad, redditPosts) in
             DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
                 guard let redditPosts = redditPosts else {
                     return
                 }
@@ -81,6 +68,24 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, UITabl
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! RedditPostTableViewCell
         
+        configure(cell, with: redditPostViewModel)
+        
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let _ = nextPostToLoad,
+            scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height),
+            !isLoadingPosts {
+            loadRedditPosts()
+        }
+    }
+    
+    // MARK: - UI Configuration
+    
+    func configure(_ cell: RedditPostTableViewCell, with redditPostViewModel: RedditPostViewModel) {
         cell.postDetailLabel.text = redditPostViewModel.detailDisplayText
         cell.postTitleLabel.text = redditPostViewModel.postTitleDisplayText
         cell.commentCountLabel.text = redditPostViewModel.commentsDisplayText
@@ -100,18 +105,6 @@ class RedditPostsViewController: UIViewController, UITableViewDataSource, UITabl
                     }
                 }
             })
-        }
-        
-        return cell
-    }
-    
-    // MARK: - UITableViewDelegate
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let _ = nextPostToLoad,
-            scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height),
-            !isLoadingPosts {
-            loadMoreRedditPosts()
         }
     }
     
