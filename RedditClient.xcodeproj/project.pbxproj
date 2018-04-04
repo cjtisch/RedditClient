@@ -17,6 +17,7 @@
 		32F5B386207517D2002177BD /* RedditPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F5B385207517D2002177BD /* RedditPostTableViewCell.swift */; };
 		32F5B38920751945002177BD /* RedditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F5B38820751945002177BD /* RedditPost.swift */; };
 		32F5B38C20751A19002177BD /* RedditDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F5B38B20751A19002177BD /* RedditDataService.swift */; };
+		32F5B38E20751D01002177BD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F5B38D20751D01002177BD /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		32F5B385207517D2002177BD /* RedditPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostTableViewCell.swift; sourceTree = "<group>"; };
 		32F5B38820751945002177BD /* RedditPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPost.swift; sourceTree = "<group>"; };
 		32F5B38B20751A19002177BD /* RedditDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditDataService.swift; sourceTree = "<group>"; };
+		32F5B38D20751D01002177BD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +87,9 @@
 		32F5B35D2075158D002177BD /* RedditClient */ = {
 			isa = PBXGroup;
 			children = (
+				32F5B35E2075158D002177BD /* AppDelegate.swift */,
 				32F5B38A20751A07002177BD /* Data Services */,
 				32F5B387207518A3002177BD /* Models */,
-				32F5B35E2075158D002177BD /* AppDelegate.swift */,
 				32F5B38420751793002177BD /* TableViewCells */,
 				32F5B37E20751678002177BD /* View Controllers */,
 				32F5B3622075158D002177BD /* Main.storyboard */,
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				32F5B38B20751A19002177BD /* RedditDataService.swift */,
+				32F5B38D20751D01002177BD /* ImageService.swift */,
 			);
 			path = "Data Services";
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				32F5B38C20751A19002177BD /* RedditDataService.swift in Sources */,
 				32F5B382207516A9002177BD /* ImageDetailViewController.swift in Sources */,
 				32F5B35F2075158D002177BD /* AppDelegate.swift in Sources */,
+				32F5B38E20751D01002177BD /* ImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,9 +14,17 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
     
+    var imageUrl = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        postImageView?.image = nil
+        imageUrl = ""
     }
 
 }

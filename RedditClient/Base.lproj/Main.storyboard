@@ -131,7 +131,14 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Z5d-Xl-djh"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="cBb-8N-syV"/>
+                                </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gq1-hc-1yi">
+                                <rect key="frame" x="177" y="355.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -139,11 +146,14 @@
                             <constraint firstItem="WGT-2v-dT8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="K3C-4k-rQ7"/>
                             <constraint firstItem="WGT-2v-dT8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="YFg-ok-Qwu"/>
                             <constraint firstItem="WGT-2v-dT8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fcu-gq-Axj"/>
+                            <constraint firstItem="Gq1-hc-1yi" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="nQb-Lq-pAc"/>
+                            <constraint firstItem="Gq1-hc-1yi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rx6-bX-esF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="QQz-sc-gcK"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Gq1-hc-1yi" id="jsl-D7-g9E"/>
                         <outlet property="tableView" destination="WGT-2v-dT8" id="FrI-iH-2Jt"/>
                         <segue destination="CRy-So-YJn" kind="show" identifier="imageDetailSegue" id="6K7-eN-L9d"/>
                     </connections>

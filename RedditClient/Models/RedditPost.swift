@@ -31,7 +31,8 @@ struct RedditPost {
         self.dateCreated = Date(timeIntervalSince1970: dateValue)
         self.commentsCount = commentsCount
         if let imageUrl = json["thumbnail"] as? String,
-            imageUrl.lowercased() != "default" {
+            imageUrl.lowercased() != "default",
+            imageUrl.lowercased() != "self" {
             self.imageUrl = imageUrl
             self.type = .image
         }
